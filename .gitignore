@@ -1,0 +1,13 @@
+.venv/
+.venv-qmt/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+data/
+backups/
+*.sqlite3*
+dist/
+node_modules/
+bridges/bridge_config.json
+*.observed.json
