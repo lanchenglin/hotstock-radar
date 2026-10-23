@@ -1,0 +1,19 @@
+{
+  "symbols": ["300115.SZ", "002426.SZ"],
+  "history_days": 120,
+  "min_history_bars": 20,
+  "download_history": true,
+  "themes": [
+    {
+      "id": "manual-robotics-example",
+      "name": "机器人（配置示例，业务关联尚未核实）",
+      "members": ["300115.SZ", "002426.SZ"],
+      "confirmed": false,
+      "evidence": []
+    }
+  ],
+  "security_rules": {
+    "300115.SZ": {"confirmed": false, "min_buy_qty": null, "buy_qty_step": null, "source_url": null},
+    "002426.SZ": {"confirmed": false, "min_buy_qty": null, "buy_qty_step": null, "source_url": null}
+  }
+}

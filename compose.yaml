@@ -1,0 +1,23 @@
+services:
+  hotstock-radar:
+    build:
+      context: .
+      args:
+        WITH_PUBLIC_DATA: ${WITH_PUBLIC_DATA:-1}
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      HOTSTOCK_API_KEY: ${HOTSTOCK_API_KEY:?Set HOTSTOCK_API_KEY in .env}
+      MARKET_DATA_URL: ${MARKET_DATA_URL:-}
+      MARKET_MCP_TOKEN: ${MARKET_MCP_TOKEN:-}
+      HOTSTOCK_LLM_ENABLED: ${HOTSTOCK_LLM_ENABLED:-0}
+      HOTSTOCK_LLM_BASE_URL: ${HOTSTOCK_LLM_BASE_URL:-}
+      HOTSTOCK_LLM_MODEL: ${HOTSTOCK_LLM_MODEL:-}
+      HOTSTOCK_LLM_API_KEY: ${HOTSTOCK_LLM_API_KEY:-}
+      HOTSTOCK_TUSHARE_TOKEN: ${HOTSTOCK_TUSHARE_TOKEN:-}
+      HOTSTOCK_SHARED_DATA_TOKEN: ${HOTSTOCK_SHARED_DATA_TOKEN:-}
+    volumes:
+      - radar-data:/app/data
+    restart: unless-stopped
+volumes:
+  radar-data:
