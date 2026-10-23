@@ -1,0 +1,10 @@
+# Optional: attach only the new application to the already-existing data network.
+services:
+  hotstock-radar:
+    networks:
+      - default
+      - market
+networks:
+  market:
+    external: true
+    name: ${MARKET_NETWORK:?Set the existing market provider Docker network name}

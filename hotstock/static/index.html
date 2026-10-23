@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182c47">
+  <title>热点雷达 · Hotstock Radar</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <aside class="sidebar" aria-label="主导航">
+    <a class="brand" href="#radar" aria-label="热点雷达首页">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M5 21V7M5 21h18M9 17l5-5 4 3 6-9"/><path d="M19 6h5v5"/></svg></span>
+      <span><strong>热点雷达</strong><small>HOTSTOCK RADAR</small></span>
+    </a>
+    <div class="workspace-label"><span class="status-dot"></span> 独立交易研究工作台</div>
+    <nav class="nav-list">
+      <button class="nav-item active" data-view="radar" aria-current="page"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="m12 12 7-7"/></svg><span>主线与候选</span><span class="nav-short">01</span></button>
+      <button class="nav-item" data-view="plans"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h4"/></svg><span>交易计划</span><span class="nav-short">02</span></button>
+      <button class="nav-item" data-view="portfolio"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/></svg><span>持仓与风控</span><span class="nav-short">03</span></button>
+      <button class="nav-item" data-view="review"><svg viewBox="0 0 24 24"><path d="M8 4h11v16H5V8M8 4v4H5M9 12h6M9 16h6"/><path d="M8 4 5 8"/></svg><span>复盘记录</span><span class="nav-short">04</span></button>
+      <button class="nav-item" data-view="settings"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg><span>数据源与设置</span><span class="nav-short">05</span></button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-note"><span class="mini-label">交易原则</span><strong>每次进场，都有退出计划。</strong><p>跟踪主线扩散，保留判断证据，记录每一笔真实成交。</p></div>
+      <div class="sidebar-mode"><span id="sidebar-mode-dot" class="status-dot amber"></span><span id="sidebar-mode">正在读取运行状态</span></div>
+      <small class="sidebar-version">Hotstock Radar · v0.1</small>
+    </div>
+  </aside>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="breadcrumb"><span>交易研究</span><span aria-hidden="true">/</span><strong id="view-title">主线与候选</strong></div>
+      <div class="topbar-actions"><span id="connection-badge" class="badge neutral">连接中</span><time id="local-date"></time><button id="manage-api-key" class="button button-quiet button-icon" aria-label="设置访问密钥" title="访问密钥"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="4"/><path d="m11 11 9 9m-4-4 3-3m-6 0 3-3"/></svg></button><button id="refresh-all" class="button button-quiet button-icon" aria-label="刷新页面数据" title="刷新页面数据"><svg viewBox="0 0 24 24"><path d="M20 10a8 8 0 1 0-2 8M20 4v6h-6"/></svg></button></div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <div id="global-banner" class="notice notice-warning" role="status"><span class="notice-icon" aria-hidden="true">!</span><div><strong>正在确认数据状态</strong><span> 数据就绪前不显示可执行信号。</span></div></div>
+      <div id="load-error" class="notice notice-danger hidden" role="alert"></div>
+
+      <section id="view-radar" class="view active" aria-labelledby="radar-heading">
+        <div class="page-heading"><div><div class="eyebrow">MARKET OPPORTUNITIES</div><h1 id="radar-heading">找到主线，等到确认</h1><p>把热点扩散变成有依据、有条件、有边界的交易观察。</p></div><div class="heading-actions"><button id="run-demo" class="button button-secondary">运行演示</button><button id="refresh-market" class="button button-primary"><svg viewBox="0 0 24 24"><path d="m4 16 5-5 4 3 7-9M15 5h5v5"/></svg>更新行情与分析</button></div></div>
+        <div class="metric-grid" id="radar-metrics">
+          <article class="metric-card"><span class="metric-label">跟踪主线</span><strong id="metric-themes">—</strong><span class="metric-note">按题材关联与市场表现观察</span></article>
+          <article class="metric-card"><span class="metric-label">候选标的</span><strong id="metric-candidates">—</strong><span class="metric-note">候选不等于买入信号</span></article>
+          <article class="metric-card"><span class="metric-label">条件已确认</span><strong id="metric-signals">—</strong><span id="metric-signal-note" class="metric-note">等待数据与规则检查</span></article>
+          <article class="metric-card"><span class="metric-label">当前持仓</span><strong id="metric-holdings">—</strong><span id="metric-holding-note" class="metric-note">以已记录成交为依据</span></article>
+        </div>
+        <div class="radar-layout">
+          <div class="main-column">
+            <article class="card theme-section"><div class="card-heading"><div><h2>主线雷达</h2><p>强度、扩散与阶段一起看</p></div><span id="theme-count" class="muted small">等待数据</span></div><div id="themes-container" class="theme-grid"><div class="empty-state compact"><div class="empty-mark">◎</div><h3>还没有主线数据</h3><p>运行演示，或接入行情后开始分析。</p></div></div></article>
+            <article class="card candidate-section"><div class="card-heading"><div><h2>今日候选</h2><p id="candidate-subtitle">每个候选都保留入选理由和触发条件</p></div><span id="candidate-count" class="count-pill">0</span></div><div class="table-toolbar"><div class="search-field"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="candidate-search" type="search" placeholder="搜索名称、代码或主线" aria-label="搜索候选标的"></div><select id="candidate-status-filter" aria-label="筛选候选状态"><option value="all">全部状态</option><option value="ready">条件确认</option><option value="watch">等待确认</option><option value="blocked">暂不可执行</option></select></div><div id="candidates-container" class="table-scroll"><div class="empty-state"><div class="empty-mark">↗</div><h3>先发现，再观察</h3><p>数据分析完成后，候选与证据会显示在这里。</p></div></div></article>
+          </div>
+          <aside class="side-column" aria-label="本轮分析状态">
+            <article class="card"><div class="card-heading"><div><h2>数据与执行条件</h2><p>以当前数据状态为准</p></div><span class="live-indicator"></span></div><div id="radar-data-status" class="status-list"><div class="status-row"><span>行情状态</span><span class="badge neutral">等待读取</span></div></div><button class="text-button full-width" data-go="settings">查看数据源与时间戳 <span aria-hidden="true">→</span></button></article>
+            <article class="card dark-card"><div class="eyebrow">YOUR TRADING PROCESS</div><h2>从观察到计划</h2><ol class="process-list"><li><span>1</span><div><strong>识别主线</strong><p>题材证据与价格表现相互核对</p></div></li><li><span>2</span><div><strong>等待触发</strong><p>价格、量能与数据质量满足条件</p></div></li><li><span>3</span><div><strong>先算风险</strong><p>记录进场区间、止损与计划仓位</p></div></li><li><span>4</span><div><strong>确认成交</strong><p>手工记录已实际成交的买卖</p></div></li></ol></article>
+            <article class="card small-card"><span class="mini-label">使用说明</span><h3>评分是排序依据</h3><p>热度或机会分数不代表上涨概率。演示信号不能用于真实交易；止损触发也不代表一定能按该价格成交。</p></article>
+          </aside>
+        </div>
+      </section>
+
+      <section id="view-plans" class="view" aria-labelledby="plans-heading" hidden>
+        <div class="page-heading"><div><div class="eyebrow">TRADE PLANNING</div><h1 id="plans-heading">交易计划</h1><p>在进场前写下价格边界，给每一次观察一个明确的下一步。</p></div><button id="new-plan" class="button button-primary"><span aria-hidden="true">＋</span> 新建计划</button></div>
+        <div class="notice notice-info"><span class="notice-icon" aria-hidden="true">i</span><div>计划用于跟踪条件，创建计划不会下单。真实持仓只由你记录的已成交买卖更新。</div></div>
+        <article class="card"><div class="card-heading"><div><h2>计划列表</h2><p>进场区间、失效条件与风险预算</p></div><span id="plan-count" class="count-pill">0</span></div><div id="plans-container" class="table-scroll"><div class="empty-state"><div class="empty-mark">▤</div><h3>第一笔计划，从风险开始</h3><p>从候选创建计划，并保存当时的价格边界。</p><button class="button button-secondary" data-click="new-plan">新建交易计划</button></div></div></article>
+      </section>
+
+      <section id="view-portfolio" class="view" aria-labelledby="portfolio-heading" hidden>
+        <div class="page-heading"><div><div class="eyebrow">POSITIONS & RISK</div><h1 id="portfolio-heading">持仓与风控</h1><p>记录真实成交，区分可卖批次，持续关注价格与主题风险。</p></div><div class="heading-actions"><button id="record-sell" class="button button-secondary">记录已成交卖出</button><button id="record-buy" class="button button-primary"><span aria-hidden="true">＋</span> 记录已成交买入</button></div></div>
+        <div class="metric-grid portfolio-metrics"><article class="metric-card"><span class="metric-label">账户权益</span><strong id="portfolio-equity">—</strong><span class="metric-note">按账本及可用行情估算</span></article><article class="metric-card"><span class="metric-label">可用现金</span><strong id="portfolio-cash">—</strong><span class="metric-note">由配置和成交记录计算</span></article><article class="metric-card"><span class="metric-label">持仓市值</span><strong id="portfolio-value">—</strong><span id="portfolio-value-note" class="metric-note">缺少可靠行情时不估值</span></article><article class="metric-card"><span class="metric-label">浮动盈亏</span><strong id="portfolio-pnl">—</strong><span class="metric-note">行情不可用时不计算</span></article></div>
+        <div id="risk-alerts" class="risk-alerts"></div>
+        <article class="card"><div class="card-heading"><div><h2>持仓明细</h2><p>止损提醒、可卖数量与成交状态分别显示</p></div><span id="holding-count" class="count-pill">0</span></div><div id="holdings-container" class="table-scroll"><div class="empty-state"><div class="empty-mark">◇</div><h3>还没有持仓记录</h3><p>使用上方按钮记录已实际成交的买入。</p></div></div></article>
+        <article class="card section-gap"><div class="card-heading"><div><h2>成交记录</h2><p>按当前模式保存手工确认的成交记录</p></div></div><div id="trades-container" class="table-scroll"><div class="empty-state compact"><p>暂无成交记录。</p></div></div></article>
+      </section>
+
+      <section id="view-review" class="view" aria-labelledby="review-heading" hidden>
+        <div class="page-heading"><div><div class="eyebrow">REVIEW & EVIDENCE</div><h1 id="review-heading">复盘记录</h1><p>保留信号出现时的依据，复查每一次判断和操作。</p></div><div class="heading-actions"><button id="export-data" class="button button-secondary">导出当前记录</button><button id="refresh-logs" class="button button-secondary">刷新记录</button></div></div>
+        <div class="review-intro card"><div class="review-icon" aria-hidden="true">↶</div><div><h2>完整记录，才能看清有效与失效</h2><p>候选、数据更新、计划与成交操作共同构成时间线。单次信号表现不能代表策略的长期收益。</p></div></div>
+        <article class="card section-gap"><div class="card-heading"><div><h2>事件时间线</h2><p>按最近事件排序</p></div><span id="event-count" class="count-pill">0</span></div><div id="events-container" class="event-list"><div class="empty-state"><div class="empty-mark">◷</div><h3>你的研究记录从这里开始</h3><p>运行分析或保存计划后，就会产生可追溯事件。</p></div></div></article>
+      </section>
+
+      <section id="view-settings" class="view" aria-labelledby="settings-heading" hidden>
+        <div class="page-heading"><div><div class="eyebrow">DATA & PREFERENCES</div><h1 id="settings-heading">数据源与设置</h1><p>先确认数据是否可用，再决定策略是否可以运行。</p></div></div>
+        <div class="settings-grid">
+          <article class="card"><div class="card-heading"><div><h2>行情数据</h2><p>来源、时间与状态保持可见</p></div><span id="source-mode-badge" class="badge neutral">未连接</span></div><div id="source-status" class="settings-body"><div class="empty-state compact"><p>正在读取数据源状态。</p></div></div><div class="card-footer"><button id="detect-source" class="button button-secondary">检测数据源</button><button id="settings-refresh" class="button button-primary">更新行情</button></div></article>
+          <article class="card"><div class="card-heading"><div><h2>导入数据快照</h2><p>适合本地数据源或离线研究</p></div><span class="badge neutral">JSON</span></div><div class="settings-body"><p class="body-note">上传包含行情与主题证据的数据快照。系统会校验字段、来源与时间；导入不代表数据已经通过真实交易检查。</p><label class="file-drop" for="snapshot-file"><svg viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/></svg><strong id="selected-file-name">选择 JSON 文件</strong><span>文件只提交到你运行的当前服务</span><input id="snapshot-file" type="file" accept="application/json,.json"></label><div class="inline-actions"><button id="download-template" class="text-button">下载格式示例</button><button id="import-snapshot" class="button button-primary" disabled>校验并导入</button></div><p id="import-status" class="form-help" aria-live="polite"></p></div></article>
+          <article class="card settings-wide"><div class="card-heading"><div><h2>资金与风险配置</h2><p>独立账户设置；调整后会用于后续计划校验</p></div></div><form id="risk-settings-form" class="settings-body"><div id="settings-fields" class="form-grid"><div class="empty-state compact"><p>正在读取账户配置。</p></div></div><div class="form-bottom"><p>风险预算用于计划测算；跳空、无法卖出或行情延迟可能使实际亏损超过预算。</p><button type="submit" class="button button-primary">保存配置</button></div><p id="settings-save-status" class="form-help" aria-live="polite"></p></form></article>
+          <article class="card settings-wide"><div class="card-heading"><div><h2>风险通知</h2><p>将后台提醒发送到你配置的接收端</p></div><span class="badge neutral">可选</span></div><div id="notification-settings" class="settings-body"><p class="form-help">正在读取通知设置。</p></div></article>
+        </div>
+      </section>
+      <footer class="app-footer"><span>热点雷达 · 每个判断都有依据，每笔交易都有记录。</span><span id="last-refreshed">尚未更新</span></footer>
+    </main>
+  </div>
+  <dialog id="app-dialog" aria-labelledby="dialog-title"><div class="dialog-head"><div><div id="dialog-eyebrow" class="eyebrow"></div><h2 id="dialog-title"></h2></div><button id="close-dialog" class="icon-button" aria-label="关闭弹窗">×</button></div><div id="dialog-body" class="dialog-body"></div></dialog>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>

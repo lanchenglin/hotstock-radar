@@ -1,0 +1,3 @@
+# Install a broker/ThinkTrader compatible XtQuant SDK separately on Windows.
+# SDK is intentionally not blindly pinned to a PyPI build that may mismatch MiniQMT.
+-r requirements.txt
